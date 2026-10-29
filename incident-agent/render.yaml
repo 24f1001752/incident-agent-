@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: public-incident-agent
+    runtime: docker
+    plan: starter
+    healthCheckPath: /healthz
+    autoDeploy: true
+    disk:
+      name: incident-agent-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DB_PATH
+        value: /var/data/incident_agent.sqlite3
+      - key: GEMINI_MODEL
+        value: gemini-3.8-flash
+      - key: MODEL_TIMEOUT_SECONDS
+        value: "13.5"
+      - key: GEMINI_API_KEY
+        sync: false
